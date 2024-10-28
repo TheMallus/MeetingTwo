@@ -6,3 +6,11 @@ The following additions include:
 - adding player control movement
 - making a custom bundle (this is important for future builds)
 Please take the time to test out what every function does to get a better feel of how bevy works :D
+
+
+# 10/28/24
+- added collision handling
+- health
+- test blocks available for spawning (press j)
+- 1 new weapon (press f to fire)
+- entity despawn system
