@@ -2,7 +2,7 @@ use bevy::prelude::*;
 use rand::Rng;
 use std::ops::Range;
 use crate::{health::Health, movement::{MovingObjBundle, Velocity, Acceleration, Collider},
-entities::{Block, Dummy}, collision_detector::CollisionDamage};
+entities::{Block, Dummy}, collision_detector::CollisionDamage, states::GameState};
 
 const VELOCITY_SCALAR: f32 = 5.0;
 const ACCELERATION_SCALAR: f32 = 1.0;
@@ -13,7 +13,9 @@ pub struct BlockPlugin;
 impl Plugin for BlockPlugin {
     fn build(&self, app: &mut App) {
         app.add_systems(PostStartup, spawn_block)
-        .add_systems(Update, spawn_dummy);
+        .add_systems(OnEnter(GameState::GameOver), spawn_block)
+        .add_systems(Update, spawn_dummy)
+        .add_systems(Update, block_destroyed);
     }
 }
 
@@ -100,3 +102,8 @@ fn spawn_dummy(
     }
 }
 
+fn block_destroyed(mut next_state: ResMut<NextState<GameState>>, query: Query<(), With <Block>>) {
+    if query.get_single().is_err() {
+        next_state.set(GameState::GameOver);
+    }
+}

@@ -8,6 +8,7 @@ pub mod weapons;
 pub mod despawn;
 pub mod entities;
 pub mod ui;
+pub mod states;
 
 use bevy::prelude::*;
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
@@ -19,6 +20,7 @@ use collision_detector::CollisionDetectionPlugin;
 use weapons::WeaponsPlugin;
 use despawn::DespawnPlugin;
 use ui::UIPlugin;
+use states::StatePlugin;
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
@@ -31,5 +33,6 @@ fn main() {
         .add_plugins(WeaponsPlugin)
         .add_plugins(DespawnPlugin)
         .add_plugins(UIPlugin)
+        .add_plugins(StatePlugin)
         .run();
 }
