@@ -11,19 +11,3 @@ impl Health {
     }
 }
 
-// const DAMAGE: f32 = 0.5;
-// fn update_health (
-//     mut query: Query<(Entity, &mut Health)>,
-//     mut commands: Commands
-// )
-// {
-//     for (entity, mut health) in query.iter_mut() {
-//         health.value += -DAMAGE;
-//         if health.value <= 0.0 {
-//             commands.entity(entity).despawn_recursive();
-//             continue
-//         }
-//     }
-// }
-// damage component is based on collision, possibly use rapier for this or else use raycast or the demo
-// collision system that isn't run with a bevy engine and hard coded but actually works

@@ -2,7 +2,7 @@ use bevy::prelude::*;
 use rand::Rng;
 use std::ops::Range;
 use crate::{health::Health, movement::{MovingObjBundle, Velocity, Acceleration, Collider},
-entities::{Block, Dummy}};
+entities::{Block, Dummy}, collision_detector::CollisionDamage};
 
 const VELOCITY_SCALAR: f32 = 5.0;
 const ACCELERATION_SCALAR: f32 = 1.0;
@@ -36,7 +36,8 @@ pub fn spawn_block(
                 ..default() // Transform describes the position of the block
             },
             health: Health::new(1000.0), 
-            collider: Collider::new(1.0),             
+            collider: Collider::new(1.0),
+            collision: CollisionDamage::new(100.0),             
                             // this will spawn the block at the xyz coords (0.0, 0.5, 0.0)
         },                  // the default sets the rest of the PbrBundle components to
                             // a built in default variable
@@ -89,7 +90,8 @@ fn spawn_dummy(
                     ..default() // Transform describes the position of the block
                 },
                 health: Health::new(100.0), 
-                collider: Collider::new(1.0),             
+                collider: Collider::new(1.0),
+                collision: CollisionDamage::new(35.0),
                                 // this will spawn the block at the xyz coords (0.0, 0.5, 0.0)
             },                  // the default sets the rest of the PbrBundle components to
                                 // a built in default variable

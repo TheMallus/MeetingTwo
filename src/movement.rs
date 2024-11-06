@@ -1,13 +1,11 @@
 use bevy::prelude::*;
-use crate::health::Health;
-use crate::entities::Block;
+use crate::{health::Health, entities::Block, collision_detector::CollisionDamage};
 
 pub struct MovementPlugin;
 
 impl Plugin for MovementPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, update_position)
-        .add_systems(Update, update_velocity)
+        app.add_systems(Update, (update_position, update_velocity).chain())
         .add_systems(Update, block_movement_controls);
     }
 }
@@ -68,6 +66,7 @@ pub struct MovingObjBundle {
     pub model: PbrBundle, // this is a built in bevy bundle
     pub health: Health,
     pub collider: Collider,
+    pub collision: CollisionDamage,
 }
 
 fn update_velocity(
@@ -136,7 +135,9 @@ fn block_movement_controls(
     ) 
 {
     //we're gonna make some local variables to help with our controller system
-    let (mut transform, mut velocity) = query.single_mut();
+    let Ok((mut transform, mut velocity)) = query.get_single_mut() else {
+        return;
+    };
     //we use single_mut since we're only looking at the block we spawned, this will only work with
     //EXACTLY 1 entity
     let mut rotation = 0.0;

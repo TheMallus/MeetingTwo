@@ -1,11 +1,11 @@
 use bevy::prelude::*;
-use crate::{movement::Collider, entities::Dummy};
+use crate::health::Health;
 
 pub struct DespawnPlugin;
 
 impl Plugin for DespawnPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, (despawn_far_away_entities, handle_collisions));
+        app.add_systems(Update, (despawn_far_away_entities, despawn_dead_entities));
     }
 }
 
@@ -19,12 +19,12 @@ fn despawn_far_away_entities(mut commands: Commands, query: Query<(Entity, &Glob
     }
 }
 
-fn handle_collisions(mut commands: Commands, query: Query<(Entity, &Collider), With<Dummy>>,) {
-    for (entity, collider) in query.iter() {
-        for &collided_entity in collider.colliding_entities.iter() {
-            if query.get(collided_entity).is_ok() {
-                continue;
-            }
+fn despawn_dead_entities(
+    mut commands: Commands,
+    query: Query<(Entity, &Health)>
+) {
+    for (entity, health) in query.iter() {
+        if health.value <= 0.0 {
             commands.entity(entity).despawn_recursive();
         }
     }
