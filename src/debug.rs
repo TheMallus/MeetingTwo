@@ -1,11 +1,10 @@
 use bevy::prelude::*;
-use crate::health::Health;
+use crate::{health::Health, schedule::InGameSet};
 pub struct DebugPlugin;
 
 impl Plugin for DebugPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, print_position)
-        .add_systems(Update, print_health);
+        app.add_systems(Update, (print_position, print_health).after(InGameSet::EntityUpdates));
     }
 }
 

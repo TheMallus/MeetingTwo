@@ -1,12 +1,12 @@
 use bevy::prelude::*;
 use bevy::window::PrimaryWindow;
 use bevy_inspector_egui::bevy_egui::EguiContext;
-use crate::{health::Health, entities::Bullet};
+use crate::{entities::Bullet, health::Health, schedule::InGameSet};
 pub struct UIPlugin;
 
 impl Plugin for UIPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, health_ui);
+        app.add_systems(Update, health_ui.in_set(InGameSet::EntityUpdates));
     }
 }
 

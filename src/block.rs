@@ -1,8 +1,7 @@
 use bevy::prelude::*;
 use rand::Rng;
 use std::ops::Range;
-use crate::{health::Health, movement::{MovingObjBundle, Velocity, Acceleration, Collider},
-entities::{Block, Dummy}, collision_detector::CollisionDamage, states::GameState};
+use crate::{collision_detector::CollisionDamage, entities::{Block, Dummy}, health::Health, movement::{Acceleration, Collider, MovingObjBundle, Velocity}, schedule::InGameSet, states::GameState};
 
 const VELOCITY_SCALAR: f32 = 5.0;
 const ACCELERATION_SCALAR: f32 = 1.0;
@@ -14,8 +13,8 @@ impl Plugin for BlockPlugin {
     fn build(&self, app: &mut App) {
         app.add_systems(PostStartup, spawn_block)
         .add_systems(OnEnter(GameState::GameOver), spawn_block)
-        .add_systems(Update, spawn_dummy)
-        .add_systems(Update, block_destroyed);
+        .add_systems(Update, spawn_dummy.in_set(InGameSet::UserInput))
+        .add_systems(Update, block_destroyed.in_set(InGameSet::EntityUpdates));
     }
 }
 

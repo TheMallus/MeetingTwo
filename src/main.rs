@@ -9,6 +9,7 @@ pub mod despawn;
 pub mod entities;
 pub mod ui;
 pub mod states;
+pub mod schedule;
 
 use bevy::prelude::*;
 use bevy_inspector_egui::quick::WorldInspectorPlugin;

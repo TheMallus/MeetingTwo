@@ -1,11 +1,11 @@
 use bevy::prelude::*;
-use crate::{health::Health, states::GameState};
+use crate::{health::Health, states::GameState, schedule::InGameSet};
 
 pub struct DespawnPlugin;
 
 impl Plugin for DespawnPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, (despawn_far_away_entities, despawn_dead_entities))
+        app.add_systems(Update, (despawn_far_away_entities, despawn_dead_entities).in_set(InGameSet::DespawnEntities))
         .add_systems(OnEnter(GameState::GameOver), despawn_all_entities);
     }
 }

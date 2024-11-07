@@ -1,12 +1,12 @@
 use bevy::prelude::*;
-use crate::{health::Health, entities::Block, collision_detector::CollisionDamage};
+use crate::{collision_detector::CollisionDamage, entities::Block, health::Health, schedule::InGameSet};
 
 pub struct MovementPlugin;
 
 impl Plugin for MovementPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, (update_position, update_velocity).chain())
-        .add_systems(Update, block_movement_controls);
+        app.add_systems(Update, (update_position, update_velocity).chain().in_set(InGameSet::EntityUpdates))
+        .add_systems(Update, block_movement_controls.in_set(InGameSet::UserInput));
     }
 }
 

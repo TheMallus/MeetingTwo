@@ -1,11 +1,10 @@
 use bevy::prelude::*;
-use crate::{movement::{MovingObjBundle, Velocity, Acceleration, Collider}, health::Health,
-entities::{Bullet, Block}, collision_detector::CollisionDamage};
+use crate::{collision_detector::CollisionDamage, entities::{Block, Bullet}, health::Health, movement::{Acceleration, Collider, MovingObjBundle, Velocity}, schedule::InGameSet};
 pub struct WeaponsPlugin;
 
 impl Plugin for WeaponsPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, block_weapons);
+        app.add_systems(Update, block_weapons.in_set(InGameSet::UserInput));
     }
 }
 

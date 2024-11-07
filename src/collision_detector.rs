@@ -1,16 +1,16 @@
 use bevy::{prelude::*, utils::HashMap};
-use crate::{movement::Collider, health::Health, entities::{Block, Bullet, Dummy}};
+use crate::{entities::{Block, Bullet, Dummy}, health::Health, movement::Collider, schedule::InGameSet};
 pub struct CollisionDetectionPlugin;
 
 impl Plugin for CollisionDetectionPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, collision_detection)
+        app.add_systems(Update, collision_detection.in_set(InGameSet::CollisionDetection))
         .add_systems(Update,
         ((
             handle_collisions::<Block>,
             handle_collisions::<Bullet>,
             handle_collisions::<Dummy>,
-        ), apply_collision_damage,).chain())
+        ), apply_collision_damage,).chain().in_set(InGameSet::EntityUpdates))
         .add_event::<CollisionEvent>();
     }
 }
