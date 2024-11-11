@@ -1,4 +1,7 @@
-use bevy::prelude::*;
+pub use bevy::prelude::*;
+
+#[derive(Component, Debug)]
+pub struct CollisionDamage(pub f32);
 
 #[derive(Component, Debug)]
 pub struct Health {
@@ -10,4 +13,3 @@ impl Health {
         Self { value }
     }
 }
-
