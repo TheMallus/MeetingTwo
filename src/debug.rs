@@ -1,10 +1,13 @@
+use crate::{combat::Health, schedule::InGameSet};
 use bevy::prelude::*;
-use crate::{health::Health, schedule::InGameSet};
 pub struct DebugPlugin;
 
 impl Plugin for DebugPlugin {
     fn build(&self, app: &mut App) {
-        app.add_systems(Update, (print_position, print_health).after(InGameSet::EntityUpdates));
+        app.add_systems(
+            Update,
+            (print_position, print_health).after(InGameSet::EntityUpdates),
+        );
     }
 }
 
@@ -18,12 +21,15 @@ impl Plugin for DebugPlugin {
 
 fn print_position(query: Query<(Entity, &Transform)>) {
     for (entity, transform) in query.iter() {
-        info!("Entity {:?} is at position {:?},", entity, transform.translation);
+        info!(
+            "Entity {:?} is at position {:?},",
+            entity, transform.translation
+        );
     } // function basically prints location of ALL existing entities per frame
 }
 
 fn print_health(query: Query<(Entity, &Health)>) {
-    for  (entity, health) in query.iter() {
+    for (entity, health) in query.iter() {
         info!("Entity {:?} has {:?} health.", entity, health.value);
     }
 }
