@@ -1,5 +1,9 @@
 ﻿# MeetingTwo Demo Extension
 
+# 11/12/24
+- migrated collision physics to rapier
+- minimized folder size
+
 # 11/6/24
 - Damage handler
 - added game states
