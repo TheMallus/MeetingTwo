@@ -20,6 +20,7 @@ pub fn apply_collision_damage(
     dummies_query: Query<&Dummy>,
     rapier_context: Res<RapierContext>,
     // name_query: Query<&Name>,
+    // mut commands: Commands,
 ) {
     for (e, damage) in collision_damage_query.iter() {
         for (e1, e2, _) in rapier_context.intersection_pairs_with(e)
@@ -57,7 +58,7 @@ pub fn block_weapons(
     if keyboard_input.pressed(KeyCode::KeyF) {
         commands.spawn((
             MovingObjBundle {
-                velocity: Velocity::new(-transform.forward() * 35.0),
+                velocity: Velocity::new(-transform.forward() * 25.0),
                 acceleration: Acceleration::new(Vec3::ZERO),
                 collider: Collider::cuboid(0.05, 0.05, 0.05),
                 health: Health::new(1.0),
