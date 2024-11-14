@@ -45,12 +45,13 @@ pub fn spawn_block(
             },
             health: Health::new(1000.0),
             collider: Collider::cuboid(0.5, 0.5, 0.5),
-            collision: CollisionDamage(0.0),
+            collision: CollisionDamage(100.0),
             // this will spawn the block at the xyz coords (0.0, 0.5, 0.0)
         }, // the default sets the rest of the PbrBundle components to
         // a built in default variable
         Block, // <---- see below for why this is here
         Name::new("Player"),
+        Sensor,
     ));
 }
 
@@ -106,7 +107,7 @@ fn spawn_dummy(
             }, // the default sets the rest of the PbrBundle components to
             // a built in default variable
             Dummy, // <---- see below for why this is here
-            Sensor,
+            Name::new("Dummy Block"),
         ));
     }
 }

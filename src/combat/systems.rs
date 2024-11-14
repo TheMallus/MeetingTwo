@@ -31,7 +31,7 @@ pub fn apply_collision_damage(
             }
             let e_target = e1;
             let Ok(mut health) = health_query.get_mut(e_target) else {
-                continue;
+                return;
             };
             // uncomment to test what was hit.
             // let name = name_query
@@ -57,11 +57,11 @@ pub fn block_weapons(
     if keyboard_input.pressed(KeyCode::KeyF) {
         commands.spawn((
             MovingObjBundle {
-                velocity: Velocity::new(-transform.forward() * 25.0),
+                velocity: Velocity::new(-transform.forward() * 35.0),
                 acceleration: Acceleration::new(Vec3::ZERO),
-                collider: Collider::cuboid(0.1, 0.1, 0.1),
+                collider: Collider::cuboid(0.05, 0.05, 0.05),
                 health: Health::new(1.0),
-                collision: CollisionDamage(5.0),
+                collision: CollisionDamage(25.0),
                 model: PbrBundle {
                     mesh: meshes.add(Cuboid::new(0.1, 0.1, 0.1)),
                     material: materials.add(Color::BLACK),
