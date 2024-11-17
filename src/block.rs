@@ -38,7 +38,7 @@ pub fn spawn_block(
             velocity: Velocity::new(Vec3::ZERO), // recall our functions we made this will just
             acceleration: Acceleration::new(Vec3::ZERO), // make a '0.0' 3d vector like this (0.0, 0.0, 0.0)
             health: Health::new(1000.0),
-            collider: Collider::cuboid(0.5, 0.5, 0.5),
+            collider: Collider::cuboid(0.1, 0.1, 0.1),
             collision: CollisionDamage(100.0),
             // this will spawn the block at the xyz coords (0.0, 0.5, 0.0)
         }, // the default sets the rest of the PbrBundle components to
