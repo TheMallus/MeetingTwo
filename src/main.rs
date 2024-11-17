@@ -8,6 +8,7 @@ pub mod schedule;
 pub mod setup;
 pub mod states;
 pub mod ui;
+pub mod asset_loader;
 
 use bevy::prelude::*;
 use bevy_inspector_egui::quick::WorldInspectorPlugin;
@@ -22,9 +23,11 @@ use movement::MovementPlugin;
 use setup::StartingWorldPlugin;
 use states::StatePlugin;
 use ui::UIPlugin;
+use asset_loader::AssetLoaderPlugin;
 fn main() {
     App::new()
         .add_plugins(DefaultPlugins)
+        .add_plugins(AssetLoaderPlugin)
         // physics
         .add_plugins(RapierPhysicsPlugin::<NoUserData>::default())
         .add_plugins(RapierDebugRenderPlugin::default())

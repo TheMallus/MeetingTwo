@@ -21,8 +21,7 @@ pub use super::*;
 #[derive(Bundle)]
 pub struct MovingObjBundle {
     pub velocity: Velocity,
-    pub acceleration: Acceleration,
-    pub model: PbrBundle, // this is a built in bevy bundle
+    pub acceleration: Acceleration, // this is a built in bevy bundle
     pub health: Health,
     pub collider: Collider,
     pub collision: CollisionDamage,

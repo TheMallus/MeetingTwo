@@ -63,14 +63,14 @@ pub fn block_weapons(
                 collider: Collider::cuboid(0.05, 0.05, 0.05),
                 health: Health::new(1.0),
                 collision: CollisionDamage(25.0),
-                model: PbrBundle {
-                    mesh: meshes.add(Cuboid::new(0.1, 0.1, 0.1)),
-                    material: materials.add(Color::BLACK),
-                    transform: Transform::from_translation(
-                        transform.translation + -transform.forward() * 1.1,
-                    ),
-                    ..default()
-                },
+            },
+            PbrBundle {
+                mesh: meshes.add(Cuboid::new(0.1, 0.1, 0.1)),
+                material: materials.add(Color::BLACK),
+                transform: Transform::from_translation(
+                    transform.translation + -transform.forward() * 1.1,
+                ),
+                ..default()
             },
             Bullet,
             Sensor,

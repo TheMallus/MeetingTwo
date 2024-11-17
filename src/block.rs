@@ -5,6 +5,7 @@ use crate::{
     movement::{Acceleration, MovingObjBundle, Velocity},
     schedule::InGameSet,
     states::GameState,
+    asset_loader::SceneAssets,
 };
 use bevy::prelude::*;
 use bevy_rapier3d::prelude::{Collider, Sensor};
@@ -30,24 +31,22 @@ impl Plugin for BlockPlugin {
 
 pub fn spawn_block(
     mut commands: Commands, // this includes the spawn command that we'll use
-    mut meshes: ResMut<Assets<Mesh>>, // PbrBundle components
-    mut materials: ResMut<Assets<StandardMaterial>>, // PbrBundle components
+    scene_assets: Res<SceneAssets>,
 ) {
     commands.spawn((
         MovingObjBundle {
             velocity: Velocity::new(Vec3::ZERO), // recall our functions we made this will just
             acceleration: Acceleration::new(Vec3::ZERO), // make a '0.0' 3d vector like this (0.0, 0.0, 0.0)
-            model: PbrBundle {
-                mesh: meshes.add(Cuboid::new(1.0, 1.0, 1.0)), // makes the cube
-                material: materials.add(Color::BLACK),        // makes the cube black
-                transform: Transform::from_xyz(0.0, 0.5, 0.0),
-                ..default() // Transform describes the position of the block
-            },
             health: Health::new(1000.0),
             collider: Collider::cuboid(0.5, 0.5, 0.5),
             collision: CollisionDamage(100.0),
             // this will spawn the block at the xyz coords (0.0, 0.5, 0.0)
         }, // the default sets the rest of the PbrBundle components to
+        SceneBundle {
+            scene: scene_assets.block.clone(),
+            transform: Transform::from_xyz(0.0, 0.5, 0.0),
+            ..default()
+        },
         // a built in default variable
         Block, // <---- see below for why this is here
         Name::new("Player"),
@@ -94,17 +93,17 @@ fn spawn_dummy(
             MovingObjBundle {
                 velocity: Velocity::new(velocity), // recall our functions we made this will just
                 acceleration: Acceleration::new(acceleration), // make a '0.0' 3d vector like this (0.0, 0.0, 0.0)
-                model: PbrBundle {
-                    mesh: meshes.add(Cuboid::new(1.0, 1.0, 1.0)), // makes the cube
-                    material: materials.add(Color::srgb(255.0, 0.0, 0.0)), // makes the cube black
-                    transform: Transform::from_translation(translation),
-                    ..default() // Transform describes the position of the block
-                },
                 health: Health::new(100.0),
                 collider: Collider::cuboid(0.5, 0.5, 0.5),
                 collision: CollisionDamage(35.0),
                 // this will spawn the block at the xyz coords (0.0, 0.5, 0.0)
             }, // the default sets the rest of the PbrBundle components to
+            PbrBundle {
+                mesh: meshes.add(Cuboid::new(1.0, 1.0, 1.0)), // makes the cube
+                material: materials.add(Color::srgb(255.0, 0.0, 0.0)), // makes the cube black
+                transform: Transform::from_translation(translation),
+                ..default() // Transform describes the position of the block
+            },
             // a built in default variable
             Dummy, // <---- see below for why this is here
             Name::new("Dummy Block"),
