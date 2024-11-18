@@ -1,6 +1,7 @@
 //simple world create
 use bevy::prelude::*;
-
+// use crate::{movement::*, combat::*, entities::Dummy};
+// use bevy_rapier3d::prelude::Collider;
 pub struct StartingWorldPlugin;
 
 impl Plugin for StartingWorldPlugin {
@@ -40,4 +41,21 @@ fn setup(
         transform: Transform::from_xyz(-10.5, 7.5, 10.0).looking_at(Vec3::ZERO, Vec3::Y),
         ..default()
     });
+    // commands.spawn((
+    //     MovingObjBundle {
+    //         velocity: Velocity::new(Vec3::ZERO),
+    //         acceleration: Acceleration::new(Vec3::ZERO),
+    //         health: Health::new(10000.0),
+    //         collider: Collider::cuboid(0.5,0.5,0.5),
+    //         collision: CollisionDamage(35.0),
+    //     },
+    //     PbrBundle {
+    //         mesh: meshes.add(Cuboid::new(1.0, 1.0, 1.0)), // makes the cube
+    //         material: materials.add(Color::srgb(255.0, 0.0, 0.0)), // makes the cube black
+    //         transform: Transform::from_xyz(5.0,0.5,5.0),
+    //         ..default() // Transform describes the position of the block
+    //     },
+    //     Dummy,
+    //     Name::new("Fixed Block"),
+    // ));
 }

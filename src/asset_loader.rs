@@ -17,6 +17,6 @@ fn load_assets(
     asset_server: Res<AssetServer>,
 ) {
     *scene_assets = SceneAssets {
-        block: asset_server.load("pistol.glb#Scene0"),
+        block: asset_server.load("test.glb#Scene0"),
     }
 }

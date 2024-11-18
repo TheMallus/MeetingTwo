@@ -109,6 +109,25 @@ fn spawn_dummy(
             Name::new("Dummy Block"),
         ));
     }
+    if keyboard_input.pressed(KeyCode::KeyK) {
+        commands.spawn((
+            MovingObjBundle {
+                velocity: Velocity::new(Vec3::ZERO),
+                acceleration: Acceleration::new(Vec3::ZERO),
+                health: Health::new(10000.0),
+                collider: Collider::cuboid(0.5,0.5,0.5),
+                collision: CollisionDamage(35.0),
+            },
+            PbrBundle {
+                mesh: meshes.add(Cuboid::new(1.0, 1.0, 1.0)), // makes the cube
+                material: materials.add(Color::srgb(255.0, 0.0, 0.0)), // makes the cube black
+                transform: Transform::from_xyz(5.0,0.5,5.0),
+                ..default() // Transform describes the position of the block
+            },
+            Dummy,
+            Name::new("Fixed Block"),
+        ));
+    }
 }
 
 fn block_destroyed(mut next_state: ResMut<NextState<GameState>>, query: Query<(), With<Block>>) {

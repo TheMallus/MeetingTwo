@@ -16,21 +16,21 @@ use bevy_rapier3d::{
 
 pub fn apply_collision_damage(
     collision_damage_query: Query<(Entity, &CollisionDamage)>,
-    mut health_query: Query<&mut Health, Without<Bullet>>,
+    mut health_query: Query<&mut Health>,
     dummies_query: Query<&Dummy>,
     rapier_context: Res<RapierContext>,
-    // name_query: Query<&Name>,
-    // mut commands: Commands,
+    name_query: Query<&Bullet>,
+    mut commands: Commands,
 ) {
     for (e, damage) in collision_damage_query.iter() {
-        for (e1, e2, _) in rapier_context.intersection_pairs_with(e)
+        for (collided, collider, _) in rapier_context.intersection_pairs_with(e)
         //.filter(|(_, _, bool)| bool == &true)
         {
             // dummies should not damage other dummies
-            if dummies_query.get(e1).is_ok() && dummies_query.get(e2).is_ok() {
+            if dummies_query.get(collided).is_ok() && dummies_query.get(collider).is_ok() {
                 continue;
             }
-            let e_target = e1;
+            let e_target = collided;
             let Ok(mut health) = health_query.get_mut(e_target) else {
                 return;
             };
@@ -39,8 +39,11 @@ pub fn apply_collision_damage(
             //     .get(e_target)
             //     .map_or(format!("{:#?}", e_target), |name| name.to_string());
             // println!("hit {:#}", name);
-
+            
             health.value -= damage.0;
+            if name_query.get(collider).is_ok() {
+                commands.entity(collider).despawn_recursive();
+            }
         }
     }
 }
@@ -68,7 +71,7 @@ pub fn block_weapons(
                 mesh: meshes.add(Cuboid::new(0.1, 0.1, 0.1)),
                 material: materials.add(Color::BLACK),
                 transform: Transform::from_translation(
-                    transform.translation + -transform.forward() * 1.1,
+                    transform.translation + -transform.forward() * 1.0,
                 ),
                 ..default()
             },

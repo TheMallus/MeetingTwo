@@ -1,4 +1,4 @@
-use crate::{combat::Health, schedule::InGameSet, states::GameState};
+use crate::{combat::Health, schedule::InGameSet, states::GameState, entities::Bullet};
 use bevy::prelude::*;
 
 pub struct DespawnPlugin;
@@ -23,7 +23,7 @@ fn despawn_far_away_entities(mut commands: Commands, query: Query<(Entity, &Glob
     }
 }
 
-fn despawn_dead_entities(mut commands: Commands, query: Query<(Entity, &Health)>) {
+fn despawn_dead_entities(mut commands: Commands, query: Query<(Entity, &Health), Without<Bullet>>) {
     for (entity, health) in query.iter() {
         if health.value <= 0.0 {
             commands.entity(entity).despawn_recursive();
