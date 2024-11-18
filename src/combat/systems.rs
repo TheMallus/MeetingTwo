@@ -3,9 +3,6 @@ use crate::{
     movement::MovingObjBundle,
 };
 
-// use bevy::{prelude::*, utils::HashMap};
-// use crate::{entities::{Block, Bullet, Dummy}, health::Health, movement::Collider, schedule::InGameSet};
-// pub struct CollisionDetectionPlugin;
 use super::*;
 use crate::movement::*;
 use bevy::prelude::*;

@@ -27,21 +27,6 @@ pub fn update_position(mut query: Query<(&Velocity, &mut Transform)>, time: Res<
 }
 // translation is the position of the entity, consider it the variable of the Transform component
 
-// #[derive(Component, Debug)]
-// pub struct Collider {
-//     pub radius: f32,
-//     pub colliding_entities: Vec<Entity>,
-// }
-
-// impl Collider {
-//     pub fn new(radius: f32) -> Self {
-//         Self {
-//             radius,
-//             colliding_entities: vec![],
-//         }
-//     }
-// }
-
 //                                      Making the Block Move
 // ===================================================================================================
 
