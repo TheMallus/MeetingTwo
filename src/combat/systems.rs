@@ -34,11 +34,6 @@ pub fn apply_collision_damage(
             let Ok(mut health) = health_query.get_mut(e_target) else {
                 return;
             };
-            // uncomment to test what was hit.
-            // let name = name_query
-            //     .get(e_target)
-            //     .map_or(format!("{:#?}", e_target), |name| name.to_string());
-            // println!("hit {:#}", name);
             
             health.value -= damage.0;
             if name_query.get(collider).is_ok() {

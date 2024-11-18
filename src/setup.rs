@@ -41,6 +41,9 @@ fn setup(
         transform: Transform::from_xyz(-10.5, 7.5, 10.0).looking_at(Vec3::ZERO, Vec3::Y),
         ..default()
     });
+
+    // uncomment below to test stopped dummy entity for collision
+
     // commands.spawn((
     //     MovingObjBundle {
     //         velocity: Velocity::new(Vec3::ZERO),

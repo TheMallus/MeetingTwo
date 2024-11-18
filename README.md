@@ -1,5 +1,9 @@
 ﻿# MeetingTwo Demo Extension
 
+# 11/18/24
+- fixed collision physics bullets now despawn accordingly
+- added pistol model for CircuitCider repo
+
 # 11/12/24
 - migrated collision physics to rapier
 - minimized folder size
