@@ -4,7 +4,7 @@
 - fixed collision physics bullets now despawn accordingly
 - added pistol model for CircuitCider repo
 - removed dead code
-Future Plans: - Migrate to Bevy 0.15
+- Future Plans: - Migrate to Bevy 0.15
 
 # 11/12/24
 - migrated collision physics to rapier
